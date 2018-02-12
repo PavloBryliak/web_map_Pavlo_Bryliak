@@ -67,12 +67,13 @@ def mapr():
     Function that creates layers using information from txt files and add these layers to the map
     """
     mae = folium.Map()
-    geocol = Nominatim()
-    dic = new_dictionary()
+    geolocator = Nominatim()
+    dict1 = new_dictionary()
     year = input("Choose an year: ")
-    places = dic[year]
+    places = dict1[year]
+    print(places)
     for i in places:
-        location = geocol.geocode(i, timeout=30)
+        location = geolocator.geocode(i, timeout=30)
         mae.add_child(folium.Marker(location=[location.latitude, location.longitude], icon=folium.Icon()))
 
     d = folium.FeatureGroup(name="Population")
@@ -90,7 +91,7 @@ def mapr():
     file_1 = open("NATO.txt", "r")
 
     for l in file:
-        location = geo.geocode(l, timeout=30)
+        location = geolocator.geocode(l, timeout=30)
         if l in file_:
             n.add_child(folium.Marker(location=[location.latitude, location.longitude],
                                       icon=folium.Icon(color='red', icon_color='green')))
